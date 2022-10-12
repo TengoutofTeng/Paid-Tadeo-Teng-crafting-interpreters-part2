@@ -4,5 +4,5 @@
 
 ## Members
 - Paid, Jave Gerard
-- Teng, Adrian Lance
 - Tadeo, Norberto, III
+- Teng, Adrian Lance
