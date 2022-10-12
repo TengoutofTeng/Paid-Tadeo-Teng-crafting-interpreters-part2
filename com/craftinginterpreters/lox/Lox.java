@@ -56,12 +56,22 @@ public class Lox {
     // Stop if there was a syntax error.
     if (hadError) return;
 
+    Resolver resolver = new Resolver(interpreter);
+    resolver.resolve(statements);
+
+    if (hadError) return;
+
     interpreter.interpret(statements);
-    // System.out.println(new AstPrinter().print(expression));
   }
 
   static void error(int line, String message) {
     report(line, "", message);
+  }
+
+  static void runtimeError(RuntimeError error) {
+    System.err.println(error.getMessage() +
+        "\n[line " + error.token.line + "]");
+    hadRuntimeError = true;
   }
 
   private static void report(int line, String where, String message) {
@@ -75,10 +85,5 @@ public class Lox {
     } else {
       report(token.line, " at '" + token.lexeme + "'", message);
     }
-  }
-
-  static void runtimeError(RuntimeError error) {
-    System.err.println(error.getMessage() + "\n[line " + error.token.line + "]");
-    hadRuntimeError = true;
   }
 }
